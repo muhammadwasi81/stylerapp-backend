@@ -35,9 +35,6 @@ const createDelivery = asyncHandler(async (req, res) => {
     });
     console.log(data, 'response from doordash');
 
-    // Save the delivery data in Mongoose
-    const userId = req.user._id;
-    console.log(userId, 'USER_ID');
     const delivery = new Delivery({
       external_delivery_id,
       pickup_address,
@@ -48,7 +45,6 @@ const createDelivery = asyncHandler(async (req, res) => {
       dropoff_phone_number,
       order_value,
       tip,
-      userId,
     });
     await delivery.save();
 
