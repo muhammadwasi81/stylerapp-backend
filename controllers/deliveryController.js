@@ -56,7 +56,7 @@ const createDelivery = asyncHandler(async (req, res) => {
       .status(200)
       .send({ data, message: 'Delivery created successfully', status: true });
   } catch (error) {
-    console.log(error.message, 'error from doordash');
+    console.log(error.message);
     res.status(500).send({ message: error.message, status: false });
   }
 });
