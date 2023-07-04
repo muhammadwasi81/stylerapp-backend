@@ -14,6 +14,10 @@ const deliverySchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+    paymentStatus: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

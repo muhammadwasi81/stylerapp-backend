@@ -5,6 +5,7 @@ const asyncHandler = require('express-async-handler');
 const Delivery = require('../models/deliveryModel');
 
 const createDelivery = asyncHandler(async (req, res) => {
+  console.log(userId, 'userId');
   try {
     const {
       external_delivery_id,
@@ -47,9 +48,8 @@ const createDelivery = asyncHandler(async (req, res) => {
       tip,
     });
     await delivery.save();
-
     res
-      .status(200)
+      .status(201)
       .send({ data, message: 'Delivery created successfully', status: true });
   } catch (error) {
     console.log(error.message);
@@ -57,4 +57,25 @@ const createDelivery = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { createDelivery };
+const getAllDeliveries = asyncHandler(async (req, res) => {
+  try {
+    const deliveries = await Delivery.find({});
+    console.log(deliveries, 'deliveries');
+
+    if (!deliveries) {
+      return res
+        .status(404)
+        .send({ message: 'No deliveries found', status: false });
+    }
+    res.status(200).send({
+      message: 'Deliveries fetched Successfully',
+      deliveries,
+      status: true,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message, status: false });
+  }
+});
+
+module.exports = { createDelivery, getAllDeliveries };
