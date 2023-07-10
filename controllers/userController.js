@@ -7,9 +7,9 @@ const generateToken = require('../utils/generateToken');
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { userName, email, phoneNumber, password } = req.body;
-  console.log(userName, email, phoneNumber, password, 'req.body');
-  if (!userName || !email || !password || !phoneNumber) {
+  const { userName, email, phoneNumber, password, isChecked } = req.body;
+  console.log(userName, email, phoneNumber, password, isChecked, 'req.body');
+  if (!userName || !email || !password || !phoneNumber || !isChecked) {
     return res
       .status(400)
       .send({ message: 'Please fill all fields', status: false });
@@ -40,12 +40,14 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     phoneNumber,
     password: hashedPassword,
+    isChecked,
   });
   const data = {
     _id: user.id,
     userName: user.userName,
     email: user.email,
     phoneNumber: user.phoneNumber,
+    isChecked: user.isChecked,
     token: generateToken(user._id),
   };
   if (user) {

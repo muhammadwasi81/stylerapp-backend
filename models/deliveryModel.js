@@ -10,13 +10,16 @@ const deliverySchema = mongoose.Schema(
     dropoff_phone_number: String,
     order_value: Number,
     tip: Number,
-    userId: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
     paymentStatus: {
       type: Boolean,
       default: false,
+    },
+    doordash_response: {
+      type: Object,
     },
   },
   {

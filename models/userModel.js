@@ -19,6 +19,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please enter your password'],
     },
+    isChecked: {
+      type: Boolean,
+      required: [true, 'Please check the box'],
+    },
   },
   {
     timestamps: true,

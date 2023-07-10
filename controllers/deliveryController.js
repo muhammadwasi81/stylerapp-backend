@@ -6,6 +6,7 @@ const Delivery = require('../models/deliveryModel');
 
 const createDelivery = asyncHandler(async (req, res) => {
   try {
+    const userId = req.user._id;
     const {
       external_delivery_id,
       pickup_address,
@@ -34,7 +35,6 @@ const createDelivery = asyncHandler(async (req, res) => {
       tip,
     });
     console.log(data, 'response from doordash');
-
     const delivery = new Delivery({
       external_delivery_id,
       pickup_address,
@@ -45,7 +45,10 @@ const createDelivery = asyncHandler(async (req, res) => {
       dropoff_phone_number,
       order_value,
       tip,
+      doordash_response: data.data,
+      user: userId,
     });
+    console.log(userId, 'userId');
     await delivery.save();
     res
       .status(201)
@@ -68,7 +71,7 @@ const getAllDeliveries = asyncHandler(async (req, res) => {
     }
     res.status(200).send({
       message: 'Deliveries fetched Successfully',
-      deliveries,
+      data: deliveries,
       status: true,
     });
   } catch (error) {

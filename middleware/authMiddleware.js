@@ -14,12 +14,11 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
       req.user = await User.findById(decoded.id).select('-password');
       next();
     } catch (error) {
-      console.log(error.message);
+      console.error(error);
       res.status(401);
-      throw new Error('Not authorized');
+      throw new Error('Not authorized, token failed');
     }
   }
-
   if (!token) {
     res.status(401);
     throw new Error('Not authorized, no token');
