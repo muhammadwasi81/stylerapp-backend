@@ -5,7 +5,6 @@ const asyncHandler = require('express-async-handler');
 const Delivery = require('../models/deliveryModel');
 
 const createDelivery = asyncHandler(async (req, res) => {
-  console.log(userId, 'userId');
   try {
     const {
       external_delivery_id,

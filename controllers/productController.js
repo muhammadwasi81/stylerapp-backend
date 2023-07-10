@@ -39,8 +39,6 @@ const createProductInfo = async (req, res) => {
         .status(400)
         .json({ message: 'Please upload an image', status: false });
     }
-    const imagePath = req.file.path;
-    console.log('Image path: ' + imagePath);
 
     const newProduct = new Product({
       productName,
@@ -49,8 +47,8 @@ const createProductInfo = async (req, res) => {
       address,
       firstName,
       lastName,
-      image: imagePath,
-      // user: userId, // Assign the user ID to the 'user' field
+      image,
+      // user: userId,
     });
 
     const savedProduct = await newProduct.save();
