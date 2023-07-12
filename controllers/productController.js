@@ -27,18 +27,18 @@ const createProductInfo = async (req, res) => {
       lastName,
       image,
     ];
-    if (requiredFields.some((field) => field === '')) {
+    if (requiredFields.includes('')) {
       return res.status(400).json({
         message: 'Please fill all the fields',
         status: false,
       });
     }
 
-    if (!req.file) {
-      return res
-        .status(400)
-        .json({ message: 'Please upload an image', status: false });
-    }
+    // if (!req.file) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: 'Please upload an image', status: false });
+    // }
 
     const newProduct = new Product({
       productName,
