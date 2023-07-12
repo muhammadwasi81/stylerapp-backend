@@ -34,11 +34,11 @@ const createProductInfo = async (req, res) => {
       });
     }
 
-    if (!req.file) {
-      return res
-        .status(400)
-        .json({ message: 'Please upload an image', status: false });
-    }
+    // if (!req.file) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: 'Please upload an image', status: false });
+    // }
 
     const newProduct = new Product({
       productName,
