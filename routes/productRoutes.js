@@ -9,5 +9,6 @@ router.post(
   upload.single('image'),
   productController.createProductInfo
 );
+router.get('/get_products', productController.getAllProducts);
 
 module.exports = router;

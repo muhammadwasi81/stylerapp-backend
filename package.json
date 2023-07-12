@@ -4,7 +4,7 @@
   "main": "server.js",
   "description": "Doordash Driver Api",
   "scripts": {
-    "server": "nodemon server.js",
+    "dev": "nodemon server.js",
     "start": "node server.js"
   },
   "keywords": [],

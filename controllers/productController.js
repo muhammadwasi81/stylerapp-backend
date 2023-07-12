@@ -34,11 +34,11 @@ const createProductInfo = async (req, res) => {
       });
     }
 
-    // if (!req.file) {
-    //   return res
-    //     .status(400)
-    //     .json({ message: 'Please upload an image', status: false });
-    // }
+    if (!req.file) {
+      return res
+        .status(400)
+        .json({ message: 'Please upload an image', status: false });
+    }
 
     const newProduct = new Product({
       productName,
@@ -47,7 +47,7 @@ const createProductInfo = async (req, res) => {
       address,
       firstName,
       lastName,
-      image,
+      image: req.file.path,
       // user: userId,
     });
 
@@ -67,4 +67,25 @@ const createProductInfo = async (req, res) => {
   }
 };
 
-module.exports = { createProductInfo };
+const getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find({});
+    if (products) {
+      return res.status(200).json({
+        message: 'Products retrieved successfully',
+        data: products,
+        status: true,
+      });
+    } else {
+      return res.status(400).json({
+        message: 'No products found',
+        status: false,
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ message: 'Server error', status: false });
+  }
+};
+
+module.exports = { createProductInfo, getAllProducts };
