@@ -6,7 +6,7 @@ const Delivery = require('../models/deliveryModel');
 
 const createDelivery = asyncHandler(async (req, res) => {
   try {
-    const userId = req.user._id;
+    // const userId = req.user._id;
     const {
       external_delivery_id,
       pickup_address,
@@ -46,9 +46,9 @@ const createDelivery = asyncHandler(async (req, res) => {
       order_value,
       tip,
       doordash_response: data.data,
-      user: userId,
+      // user: userId,
     });
-    console.log(userId, 'userId');
+    // console.log(userId, 'userId');
     await delivery.save();
     res
       .status(201)
