@@ -6,27 +6,11 @@ const User = require('../models/userModel');
 // @access Public
 const createProductInfo = async (req, res) => {
   try {
-    const {
-      productName,
-      quantity,
-      color,
-      address,
-      firstName,
-      lastName,
-      image,
-    } = req.body;
+    const { products, quantity, firstName, lastName, image } = req.body;
 
-    // const userId = req.user._id; // Retrieve the user ID directly
+    // const userId = req.user._id;
     // console.log(userId, 'user id');
-    const requiredFields = [
-      productName,
-      quantity,
-      color,
-      address,
-      firstName,
-      lastName,
-      image,
-    ];
+    const requiredFields = [products, quantity, firstName, lastName, image];
     if (requiredFields.includes('')) {
       return res.status(400).json({
         message: 'Please fill all the fields',
@@ -34,31 +18,33 @@ const createProductInfo = async (req, res) => {
       });
     }
 
-    // if (!req.file) {
-    //   return res
-    //     .status(400)
-    //     .json({ message: 'Please upload an image', status: false });
-    // }
-
+    if (!req.file) {
+      return res.status(400).json({
+        message: 'Please upload an image',
+        status: false,
+      });
+    }
     const newProduct = new Product({
-      productName,
+      products,
       quantity,
-      color,
-      address,
       firstName,
       lastName,
-      image: req.file.path,
+      image: req.file.filename || '../public/uploads/default.png',
       // user: userId,
     });
 
     const savedProduct = await newProduct.save();
     console.log('Saved product: ' + savedProduct);
     if (savedProduct) {
-      console.log('Saved saved product saved');
       return res.status(201).json({
         message: 'Product created successfully',
         data: savedProduct,
         status: true,
+      });
+    } else {
+      return res.status(400).json({
+        message: 'Product not created',
+        status: false,
       });
     }
   } catch (error) {
