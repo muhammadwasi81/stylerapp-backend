@@ -6,11 +6,11 @@ const User = require('../models/userModel');
 // @access Public
 const createProductInfo = async (req, res) => {
   try {
-    const { products, quantity, firstName, lastName, image } = req.body;
+    const { firstName, lastName, image } = req.body;
 
     // const userId = req.user._id;
     // console.log(userId, 'user id');
-    const requiredFields = [products, quantity, firstName, lastName, image];
+    const requiredFields = [firstName, lastName, image];
     if (requiredFields.includes('')) {
       return res.status(400).json({
         message: 'Please fill all the fields',
@@ -25,8 +25,6 @@ const createProductInfo = async (req, res) => {
       });
     }
     const newProduct = new Product({
-      products,
-      quantity,
       firstName,
       lastName,
       image: req.file.filename || '../public/uploads/default.png',
@@ -49,7 +47,9 @@ const createProductInfo = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ message: 'Server error', status: false });
+    return res
+      .status(500)
+      .json({ message: 'Error Creating Product', status: false });
   }
 };
 
