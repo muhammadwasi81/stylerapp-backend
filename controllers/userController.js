@@ -95,4 +95,18 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, loginUser };
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  console.log(user, 'user');
+  if (user) {
+    res.status(200).json({
+      message: 'User fetched successfully',
+      data: user,
+      status: true,
+    });
+  } else {
+    res.status(404).send({ message: 'User not found', status: false });
+  }
+});
+
+module.exports = { registerUser, loginUser, getUserById };
