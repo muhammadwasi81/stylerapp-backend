@@ -19,6 +19,8 @@ const createDelivery = asyncHandler(async (req, res) => {
       pickup_instructions,
       pickup_phone_number,
       tip,
+      order_value,
+      action_if_undeliverable,
     } = req.body;
     console.log(req.body, 'req.body');
     const client = new DoorDashClient({
@@ -38,6 +40,8 @@ const createDelivery = asyncHandler(async (req, res) => {
       pickup_instructions,
       pickup_phone_number,
       tip,
+      order_value,
+      action_if_undeliverable,
     });
     console.log('RESPONSE FROM DOORDASH API', data);
     const delivery = new Delivery({
@@ -52,6 +56,8 @@ const createDelivery = asyncHandler(async (req, res) => {
       pickup_instructions,
       pickup_phone_number,
       tip,
+      order_value,
+      action_if_undeliverable,
       doordash_response: data.data,
       // user: userId,
     });

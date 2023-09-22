@@ -10,6 +10,7 @@ const deliverySchema = mongoose.Schema(
     dropoff_phone_number: String,
     order_value: Number,
     tip: Number,
+    action_if_undeliverable: String,
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
