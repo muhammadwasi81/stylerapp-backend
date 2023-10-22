@@ -5,7 +5,8 @@
   "description": "Doordash Driver Api",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "data:import": "node seeder"
   },
   "keywords": [],
   "author": "",

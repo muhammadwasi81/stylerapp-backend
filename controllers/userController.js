@@ -48,6 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email: user.email,
     phoneNumber: user.phoneNumber,
     isChecked: user.isChecked,
+    isAdmin: user.isAdmin,
     token: generateToken(user._id),
   };
   if (user) {
@@ -81,13 +82,21 @@ const loginUser = asyncHandler(async (req, res) => {
     userName: user.userName,
     email: user.email,
     phoneNumber: user.phoneNumber,
+    isAdmin: user.isAdmin,
     token: generateToken(user._id),
   };
 
   if (await bcrypt.compare(password, user.password)) {
     res
       .status(200)
-      .json({ message: "User logged in successfully", data, status: true });
+      .json({
+        message:
+          data.isAdmin === true
+            ? "Admin logged in successfully"
+            : "User logged in successfully",
+        data,
+        status: true,
+      });
   } else {
     res
       .status(400)
