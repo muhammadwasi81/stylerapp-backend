@@ -8,8 +8,11 @@ const dashboardData = async (req, res) => {
     const users = await User.find({ isAdmin: false })
       .select("-password")
       .sort({ createdAt: -1 });
-    const deliveries = await Delivery.find({}).sort({ createdAt: -1 });
-    console.log(products, "products");
+    const deliveries = await Delivery.find({})
+      .sort({ createdAt: -1 })
+      .populate({ path: "userId", select: "-_id userName email" });
+
+    console.log(deliveries, "deliveries");
     return res.send({
       data: {
         products,

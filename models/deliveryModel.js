@@ -4,6 +4,7 @@ const deliverySchema = mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     external_delivery_id: {

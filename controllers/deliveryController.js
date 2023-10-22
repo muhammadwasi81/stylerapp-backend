@@ -11,6 +11,7 @@ const userModel = require("../models/userModel");
 const createDelivery = asyncHandler(async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
+  const userId = req.user._id;
   try {
     const {
       userId,
