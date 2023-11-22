@@ -7,9 +7,6 @@ const User = require("../models/userModel");
 const createProductInfo = async (req, res) => {
   try {
     const { userId, firstName, lastName, image } = req.body;
-
-    // const userId = req.user._id;
-    // console.log(userId, 'user id');
     const requiredFields = [userId, firstName, lastName, image];
     if (requiredFields.includes("")) {
       return res.status(400).json({
