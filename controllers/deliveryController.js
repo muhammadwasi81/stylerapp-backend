@@ -15,7 +15,6 @@ const createDelivery = asyncHandler(async (req, res) => {
   console.log(userId, "userID");
   try {
     const {
-      userId,
       external_delivery_id,
       pickup_address,
       pickup_business_name,
@@ -56,9 +55,10 @@ const createDelivery = asyncHandler(async (req, res) => {
     console.log("RESPONSE FROM DOORDASH API", data);
     const delivery = new Delivery({
       ...req.body,
+      userId,
     });
-    console.log(userId, "userId");
     await delivery.save({ session });
+    console.log(delivery, "delivery.message");
     console.log(data.message, "data.message");
 
     await session.commitTransaction();
