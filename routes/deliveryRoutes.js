@@ -8,7 +8,7 @@ const {
 const { authMiddleware } = require("../middleware/authMiddleware");
 
 router.post("/create_delivery", authMiddleware, createDelivery);
-router.get("/get_deliveries", getAllDeliveries);
-router.get("/get_delivery_status", getDeliverStatus);
+router.get("/get_deliveries", authMiddleware, getAllDeliveries);
+router.get("/get_delivery_status", authMiddleware, getDeliverStatus);
 
 module.exports = router;

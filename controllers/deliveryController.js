@@ -12,6 +12,7 @@ const createDelivery = asyncHandler(async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   const userId = req.user._id;
+  console.log(userId, "userID");
   try {
     const {
       userId,
@@ -31,8 +32,10 @@ const createDelivery = asyncHandler(async (req, res) => {
     } = req.body;
     console.log(req.body, "req.body");
     const client = new DoorDashClient({
-      developer_id: "176d0960-96de-41e6-8348-2018b8643934",
-      key_id: "01a18f0f-ed66-4e78-9f17-0dbe9c341c72",
+      developer_id: "176d0960-96de-41e6-8348-2018b8643934", // local
+      // key_id: "01a18f0f-ed66-4e78-9f17-0dbe9c341c72", // local
+      // developer_id: "176d0960-96de-41e6-8348-2018b8643934", // live
+      // key_id: "de24935d-cfa9-4389-b9f4-bc145f2f1b62", // live
       signing_secret: "ww4QAu1v0Te2jz9W_c_-GbzyS2JbFsgal8o5xJVkZqs",
     });
     const data = await client.createDelivery({
