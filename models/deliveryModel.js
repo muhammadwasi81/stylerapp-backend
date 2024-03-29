@@ -20,6 +20,10 @@ const deliverySchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    pickup_reference_tag: {
+      type: String,
+      required: true,
+    },
     dropoff_address: {
       type: String,
       required: true,
