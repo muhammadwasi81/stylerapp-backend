@@ -22,7 +22,6 @@ const createDelivery = asyncHandler(async (req, res) => {
       dropoff_phone_number,
       dropoff_instructions,
       dropoff_address,
-      pickup_reference_tag,
       dropoff_contact_given_name,
       pickup_instructions,
       pickup_phone_number,
@@ -30,8 +29,14 @@ const createDelivery = asyncHandler(async (req, res) => {
       order_value,
       action_if_undeliverable,
     } = req.body;
-
     console.log(req.body, "req.body");
+
+    if (!req.file) {
+      return res
+        .status(400)
+        .send({ message: "Please upload an image for pickup reference tag" });
+    }
+
     const client = new DoorDashClient({
       developer_id:
         process.env.NODE_ENV === "production"
@@ -54,17 +59,18 @@ const createDelivery = asyncHandler(async (req, res) => {
       dropoff_phone_number,
       dropoff_instructions,
       dropoff_address,
-      pickup_reference_tag,
       dropoff_contact_given_name,
       pickup_instructions,
       pickup_phone_number,
       tip,
       order_value,
       action_if_undeliverable,
+      pickup_reference_tag: req.file.path,
     });
     console.log("RESPONSE FROM DOORDASH API=>", data);
     const delivery = new Delivery({
       ...req.body,
+      pickup_reference_tag: req.file.path,
       userId,
     });
     await delivery.save({ session });
